@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Search | Planteer{% endblock %}
+
+{% block content %}
+<h1>Search plants</h1>
+
+<form method="get" class="plants-search-form">
+    <input type="text" name="q" placeholder="Search by name, about, or usage"
+           value="{{ query }}">
+    <button type="submit">Search</button>
+</form>
+
+<section class="plants-grid">
+    {% for plant in plants %}
+        <article class="plant-card">
+            <a href="{% url 'plants:plant_detail' plant.pk %}">
+                {% if plant.image %}
+                    <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+                {% endif %}
+                <h2>{{ plant.name }}</h2>
+            </a>
+            <p>{{ plant.about|truncatechars:80 }}</p>
+        </article>
+    {% empty %}
+        <p>No plants found.</p>
+    {% endfor %}
+</section>
+{% endblock %}

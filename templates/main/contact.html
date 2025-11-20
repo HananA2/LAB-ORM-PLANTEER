@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Contact | Planteer{% endblock %}
+
+{% block content %}
+<h1>Contact us</h1>
+<p>Send us a message about plants, ideas, or feedback.</p>
+
+<form method="post">
+    {% csrf_token %}
+
+    <div class="contact-form__row">
+        <div class="contact-form__field">
+            <label for="first_name">First name</label>
+            <input id="first_name" type="text" name="first_name" required>
+        </div>
+
+        <div class="contact-form__field">
+            <label for="last_name">Last name</label>
+            <input id="last_name" type="text" name="last_name" required>
+        </div>
+    </div>
+
+    <div class="contact-form__field">
+        <label for="email">Email</label>
+        <input id="email" type="email" name="email" required>
+    </div>
+
+    <div class="contact-form__field">
+        <label for="message">Your message</label>
+        <textarea id="message" name="message" rows="4" required></textarea>
+    </div>
+
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}

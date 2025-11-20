@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home | Planteer{% endblock %}
+
+{% block content %}
+<section class="home-hero">
+    <div class="home-hero__text">
+        <h1>Planteer</h1>
+        <p>A simple plant database for plant lovers. Browse, search,
+            and manage your favorite plants.</p>
+
+        <div class="home-hero__actions">
+            <a href="{% url 'plants:all_plants' %}">View all plants</a>
+            <a href="{% url 'plants:plant_create' %}">Add a new plant</a>
+        </div>
+    </div>
+
+    <div class="home-hero__image-row">
+        <img src="{% static 'images/hero-plant.jpg' %}" alt="Plant leaves illustration">
+    </div>
+</section>
+{% endblock %}

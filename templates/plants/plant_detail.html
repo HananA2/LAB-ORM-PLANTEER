@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}{{ plant.name }} | Planteer{% endblock %}
+
+{% block content %}
+<section class="plant-detail">
+    <div class="plant-detail__image">
+        {% if plant.image %}
+            <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+        {% endif %}
+    </div>
+
+    <div class="plant-detail__info">
+        <h1>{{ plant.name }}</h1>
+
+        <section>
+            <h2>About</h2>
+            <p>{{ plant.about }}</p>
+        </section>
+
+        <section>
+            <h2>Used for</h2>
+            <p>{{ plant.used_for }}</p>
+        </section>
+
+        <section class="plant-detail__meta">
+            <p><strong>Category:</strong> {{ plant.get_category_display }}</p>
+            <p>
+                <strong>Edible:</strong>
+                {% if plant.is_edible %}Yes{% else %}No{% endif %}
+            </p>
+        </section>
+
+        <div class="plant-detail__actions">
+            <a href="{% url 'plants:plant_update' plant.pk %}">Edit</a>
+            <a href="{% url 'plants:plant_delete' plant.pk %}">Delete</a>
+        </div>
+    </div>
+</section>
+
+<section class="plant-related">
+    <h2>Related plants</h2>
+    <div class="plants-grid">
+        {% for p in related_plants %}
+            <article class="plant-card">
+                <a href="{% url 'plants:plant_detail' p.pk %}">
+                    {% if p.image %}
+                        <img src="{{ p.image.url }}" alt="{{ p.name }}">
+                    {% endif %}
+                    <h3>{{ p.name }}</h3>
+                </a>
+            </article>
+        {% empty %}
+            <p>No related plants.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

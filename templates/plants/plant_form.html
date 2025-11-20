@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}{% if plant %}Update{% else %}Add{% endif %} Plant | Planteer{% endblock %}
+
+{% block content %}
+<h1>{% if plant %}Update{% else %}Add new{% endif %} plant</h1>
+
+<form method="post" enctype="multipart/form-data" class="plant-form">
+    {% csrf_token %}
+
+    <div class="plant-form__field">
+        <label for="name">Name</label>
+        <input id="name" type="text" name="name" required
+               value="{{ plant.name|default_if_none:'' }}">
+    </div>
+
+    <div class="plant-form__field">
+        <label for="about">About</label>
+        <textarea id="about" name="about" rows="3" required>{{ plant.about|default_if_none:'' }}</textarea>
+    </div>
+
+    <div class="plant-form__field">
+        <label for="used_for">Used for</label>
+        <textarea id="used_for" name="used_for" rows="3" required>{{ plant.used_for|default_if_none:'' }}</textarea>
+    </div>
+
+    <div class="plant-form__field">
+        <label for="image">Image</label>
+        <input id="image" type="file" name="image">
+        {% if plant and plant.image %}
+            <p>Current image:</p>
+            <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+        {% endif %}
+    </div>
+
+    <div class="plant-form__field">
+        <label for="category">Category</label>
+        <select id="category" name="category" required>
+            <option value="">Choose…</option>
+            <option value="indoor"    {% if plant.category == "indoor" %}selected{% endif %}>Indoor</option>
+            <option value="outdoor"   {% if plant.category == "outdoor" %}selected{% endif %}>Outdoor</option>
+            <option value="succulent" {% if plant.category == "succulent" %}selected{% endif %}>Succulent</option>
+            <option value="herb"      {% if plant.category == "herb" %}selected{% endif %}>Herb</option>
+            <option value="other"     {% if plant.category == "other" %}selected{% endif %}>Other</option>
+        </select>
+    </div>
+
+    <div class="plant-form__field plant-form__field--inline">
+        <label>
+            <input type="checkbox" name="is_edible" value="true"
+                   {% if plant.is_edible %}checked{% endif %}>
+            Edible
+        </label>
+    </div>
+
+    <button type="submit">Save</button>
+</form>
+{% endblock %}

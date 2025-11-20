@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}All Plants | Planteer{% endblock %}
+
+{% block content %}
+<h1>All plants</h1>
+
+<form method="get" class="plants-filter-form">
+    <div>
+        <label for="category">Category</label>
+        <select id="category" name="category">
+            <option value="">All</option>
+            <option value="indoor"   {% if selected_category == "indoor" %}selected{% endif %}>Indoor</option>
+            <option value="outdoor"  {% if selected_category == "outdoor" %}selected{% endif %}>Outdoor</option>
+            <option value="succulent"{% if selected_category == "succulent" %}selected{% endif %}>Succulent</option>
+            <option value="herb"     {% if selected_category == "herb" %}selected{% endif %}>Herb</option>
+            <option value="other"    {% if selected_category == "other" %}selected{% endif %}>Other</option>
+        </select>
+    </div>
+
+    <div class="plants-filter-form__field">
+        <label>
+            <input type="checkbox" name="is_edible" value="true"
+                   {% if selected_is_edible == "true" %}checked{% endif %}>
+            Edible only
+        </label>
+    </div>
+
+    <button type="submit">Filter</button>
+</form>
+
+<section class="plants-grid">
+    {% for plant in plants %}
+        <article class="plant-card">
+            <a href="{% url 'plants:plant_detail' plant.pk %}">
+                {% if plant.image %}
+                    <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+                {% endif %}
+                <h2>{{ plant.name }}</h2>
+            </a>
+            <p>{{ plant.about|truncatechars:80 }}</p>
+            <p>
+                <small>{{ plant.get_category_display }}
+                    {% if plant.is_edible %} • Edible{% endif %}
+                </small>
+            </p>
+        </article>
+    {% empty %}
+        <p>No plants yet. Add your first plant from “Add Plant”.</p>
+    {% endfor %}
+</section>
+{% endblock %}

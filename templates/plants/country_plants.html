@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}{{ country.name }} | Native Plants{% endblock %}
+
+{% block content %}
+<h1>Plants native to {{ country.name }}</h1>
+
+<section class="plants-grid">
+    {% for plant in plants %}
+        {% include "plants/_plant_card.html" with plant=plant %}
+    {% empty %}
+        <p>No plants found for this country.</p>
+    {% endfor %}
+</section>
+{% endblock %}

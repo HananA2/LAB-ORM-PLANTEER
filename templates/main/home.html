@@ -4,20 +4,37 @@
 {% block title %}Home | Planteer{% endblock %}
 
 {% block content %}
-<section class="home-hero">
-    <div class="home-hero__text">
-        <h1>Planteer</h1>
-        <p>A simple plant database for plant lovers. Browse, search,
-            and manage your favorite plants.</p>
 
-        <div class="home-hero__actions">
-            <a href="{% url 'plants:all_plants' %}">View all plants</a>
-            <a href="{% url 'plants:plant_create' %}">Add a new plant</a>
+<section class="home-hero-full">
+
+    <div class="home-hero-left">
+        <p class="hero-eyebrow">PLANT CARE MADE SIMPLE</p>
+
+        <h1 class="hero-title">Planteer</h1>
+
+        <p class="hero-subtitle">
+            A simple plant database for plant lovers. Browse, search, and manage all your indoor & outdoor plants in one place.
+        </p>
+
+        <div class="hero-actions">
+            <a href="{% url 'plants:all_plants' %}" class="btn-primary">View all plants</a>
+            <a href="{% url 'plants:plant_create' %}" class="btn-secondary">Add a new plant</a>
+        </div>
+
+        <div class="hero-tags">
+            <span>🌱 Indoor & outdoor plants</span>
+            <span>🌤️ Care notes made easy</span>
         </div>
     </div>
 
-    <div class="home-hero__image-row">
-        <img src="{% static 'images/hero-plant.jpg' %}" alt="Plant leaves illustration">
+    <div class="home-hero-right">
+        <div class="hero-card">
+            <img src="{% static 'images/hero-plant.jpg' %}" alt="Plants">
+            <h3>Green spaces inspire calm</h3>
+            <p>Adding plants to your space brings life, color, and balance.</p>
+        </div>
     </div>
+
 </section>
+
 {% endblock %}

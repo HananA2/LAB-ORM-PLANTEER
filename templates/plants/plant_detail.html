@@ -4,32 +4,53 @@
 
 {% block content %}
 <section class="plant-detail">
+
     <div class="plant-detail__image">
         {% if plant.image %}
-            <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+            <img class="plant-detail-img" src="{{ plant.image.url }}" alt="{{ plant.name }}">
         {% endif %}
     </div>
 
     <div class="plant-detail__info">
-        <h1>{{ plant.name }}</h1>
 
-        <section>
-            <h2>About</h2>
+        <h1 class="plant-title">{{ plant.name }}</h1>
+
+        <section class="plant-section">
+            <h2 class="section-title">About</h2>
             <p>{{ plant.about }}</p>
         </section>
 
-        <section>
-            <h2>Used for</h2>
+        <section class="plant-section">
+            <h2 class="section-title">Used for</h2>
             <p>{{ plant.used_for }}</p>
         </section>
 
-        <section class="plant-detail__meta">
+        <section class="plant-section">
             <p><strong>Category:</strong> {{ plant.get_category_display }}</p>
-            <p>
-                <strong>Edible:</strong>
-                {% if plant.is_edible %}Yes{% else %}No{% endif %}
-            </p>
+            <p><strong>Edible:</strong> {% if plant.is_edible %}Yes{% else %}No{% endif %}</p>
+
+            <p><strong>Native to:</strong></p>
+            <div class="native-countries">
+                {% for country in plant.countries.all %}
+                    <a class="country-badge" href="{% url 'plants:country_plants' country.pk %}">
+                        {% if country.flag %}
+                            <img src="{{ country.flag.url }}" alt="{{ country.name }}">
+                        {% endif %}
+                        <span>{{ country.name }}</span>
+                    </a>
+                {% empty %}
+                    <span>No countries specified.</span>
+                {% endfor %}
+            </div>
         </section>
+
+        <div class="plant-detail__actions">
+            <a class="btn-edit" href="{% url 'plants:plant_update' plant.pk %}">Edit</a>
+            <a class="btn-delete" href="{% url 'plants:plant_delete' plant.pk %}">Delete</a>
+        </div>
+
+    </div>
+</section>
 
         <div class="plant-detail__actions">
             <a href="{% url 'plants:plant_update' plant.pk %}">Edit</a>
@@ -42,14 +63,7 @@
     <h2>Related plants</h2>
     <div class="plants-grid">
         {% for p in related_plants %}
-            <article class="plant-card">
-                <a href="{% url 'plants:plant_detail' p.pk %}">
-                    {% if p.image %}
-                        <img src="{{ p.image.url }}" alt="{{ p.name }}">
-                    {% endif %}
-                    <h3>{{ p.name }}</h3>
-                </a>
-            </article>
+            {% include "plants/_plant_card.html" with plant=p %}
         {% empty %}
             <p>No related plants.</p>
         {% endfor %}

@@ -18,6 +18,19 @@
         </select>
     </div>
 
+    <div>
+        <label for="country">Country</label>
+        <select id="country" name="country">
+            <option value="">All</option>
+            {% for c in countries %}
+                <option value="{{ c.id }}"
+                    {% if selected_country_id|default:'' == c.id|stringformat:"s" %}selected{% endif %}>
+                    {{ c.name }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
     <div class="plants-filter-form__field">
         <label>
             <input type="checkbox" name="is_edible" value="true"
@@ -31,20 +44,7 @@
 
 <section class="plants-grid">
     {% for plant in plants %}
-        <article class="plant-card">
-            <a href="{% url 'plants:plant_detail' plant.pk %}">
-                {% if plant.image %}
-                    <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
-                {% endif %}
-                <h2>{{ plant.name }}</h2>
-            </a>
-            <p>{{ plant.about|truncatechars:80 }}</p>
-            <p>
-                <small>{{ plant.get_category_display }}
-                    {% if plant.is_edible %} • Edible{% endif %}
-                </small>
-            </p>
-        </article>
+        {% include "plants/_plant_card.html" with plant=plant %}
     {% empty %}
         <p>No plants yet. Add your first plant from “Add Plant”.</p>
     {% endfor %}

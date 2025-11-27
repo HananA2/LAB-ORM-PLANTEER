@@ -1,3 +1,6 @@
+/* =========================
+   RESET + ROOT
+   ========================= */
    * {
     margin: 0;
     padding: 0;
@@ -18,12 +21,17 @@
     --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
-html, body {
+html,
+body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     background-color: var(--bg-body);
     color: var(--text-main);
     line-height: 1.5;
 }
+
+/* =========================
+   HEADER + LAYOUT
+   ========================= */
 
 header {
     background-color: var(--bg-header);
@@ -46,7 +54,7 @@ header nav a {
     padding: 6px 10px;
     border-radius: 999px;
     font-size: 0.9rem;
-    transition: all .2s ease;
+    transition: all 0.2s ease;
 }
 
 header nav a:hover {
@@ -68,56 +76,161 @@ footer {
     font-size: 0.85rem;
 }
 
-.home-hero {
+/* ============ HOME HERO NEW DESIGN ============ */
+
+/* ============ FULL-WIDTH HERO ============ */
+
+.home-hero-full {
+    width: 100vw;               /* FULL WIDTH */
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;         /* FIX FULL-WIDTH BUG */
+    margin-right: -50vw;
+
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    text-align: center;
-    gap: 22px;
-    margin-bottom: 40px;
+    gap: 40px;
+
+    padding: 70px 80px;
+    background: linear-gradient(135deg, #e9f5ee, #fdfdfd);
+
+    border-radius: 0 0 40px 40px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+    margin-bottom: 50px;
 }
 
-.home-hero__text p {
+.home-hero-left {
+    flex: 1;
+    max-width: 520px;
+}
+
+.hero-eyebrow {
+    color: var(--accent);
+    font-size: 0.85rem;
+    letter-spacing: 0.09em;
+    margin-bottom: 10px;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.hero-subtitle {
+    font-size: 1.1rem;
     color: var(--text-muted);
-    max-width: 500px;
-    margin: 8px auto 16px;
+    margin-bottom: 18px;
 }
 
-.home-hero__actions {
+.hero-actions {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.btn-primary,
+.btn-secondary {
+    padding: 10px 18px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 0.95rem;
+    border: 1px solid var(--accent);
+    transition: 0.2s ease;
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background: #154c30;
+    border-color: #154c30;
+}
+
+.btn-secondary {
+    background: #ffffff;
+    color: var(--accent);
+}
+
+.btn-secondary:hover {
+    background: #154c30;
+    color: #ffffff;
+}
+
+.hero-tags {
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
+    color: var(--text-muted);
+    font-size: 0.88rem;
+}
+
+.hero-tags span {
+    background: #e6f2eb;
+    padding: 5px 12px;
+    border-radius: 999px;
+}
+
+/* RIGHT CARD */
+
+.home-hero-right {
+    flex: 1;
+    display: flex;
     justify-content: center;
 }
 
-.home-hero__actions a {
-    text-decoration: none;
-    padding: 8px 16px;
-    border-radius: 999px;
-    border: 1px solid var(--accent);
-    color: var(--accent);
-    background-color: #ffffff;
-    transition: all .2s ease;
-    font-size: .9rem;
+.hero-card {
+    background: white;
+    border-radius: 22px;
+    padding-bottom: 18px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.10);
+    max-width: 380px;
+    text-align: center;
 }
 
-.home-hero__actions a:first-child {
-    background-color: var(--accent);
-    color: #ffffff;
-}
-
-.home-hero__actions a:hover {
-    background-color: #154c30;
-    border-color: #154c30;
-    color: #ffffff;
-}
-
-.home-hero__image-row img {
-    max-width: 650px;
+.hero-card img {
     width: 100%;
-    margin: 0 auto;
-    display: block;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 22px 22px 0 0;
 }
+
+.hero-card h3 {
+    font-size: 1.2rem;
+    margin: 12px 0 6px;
+    color: var(--accent);
+}
+
+.hero-card p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+    .home-hero-full {
+        flex-direction: column;
+        padding: 50px 30px;
+        text-align: center;
+    }
+
+    .home-hero-left {
+        max-width: 100%;
+    }
+
+    .hero-actions {
+        justify-content: center;
+    }
+}
+
+/* =========================
+   PLANTS GRID + CARD
+   ========================= */
+
 .plants-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -129,7 +242,7 @@ footer {
     padding: 12px;
     border-radius: 12px;
     box-shadow: var(--shadow-soft);
-    transition: transform .15s ease;
+    transition: transform 0.15s ease;
 }
 
 .plant-card:hover {
@@ -151,8 +264,16 @@ footer {
 }
 
 .plant-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
     border-radius: 10px;
+    display: block;
 }
+
+/* =========================
+   FILTERS
+   ========================= */
 
 .plants-filter-form {
     background-color: var(--bg-surface);
@@ -174,44 +295,144 @@ footer {
     border: none;
 }
 
+/* =========================
+   PLANT DETAIL PAGE
+   ========================= */
+
 .plant-detail {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 26px;
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    padding: 30px 0;
     margin-bottom: 40px;
 }
 
-.plant-detail img {
-    border-radius: 14px;
+.plant-detail__image {
+    flex: 1;
 }
 
-.plant-detail__actions {
+.plant-detail-img {
+    width: 100%;
+    max-width: 500px;
+    height: 420px;
+    object-fit: cover;
+    border-radius: 16px;
+    display: block;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+.plant-detail__info {
+    flex: 1;
+    padding-right: 20px;
+}
+
+.plant-title {
+    font-size: 40px;
+    font-weight: 800;
+    color: #1b5e20; /* أخضر غامق */
+    margin-bottom: 20px;
+}
+
+.plant-section {
+    margin-top: 16px;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #2e7d32;
+}
+
+.plant-section p {
+    line-height: 1.7;
+    color: #333333;
+}
+
+/* Native countries badges */
+.native-countries {
     display: flex;
-    gap: 10px;
-    margin-top: 10px;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.country-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    background: #f3f3f3;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    transition: 0.2s ease;
+}
+
+.country-badge:hover {
+    background: #e6e6e6;
+}
+
+.country-badge img {
+    width: 22px;
+    height: 15px;
+    object-fit: cover;
+    border-radius: 3px;
+}
+
+/* Actions */
+.plant-detail__actions {
+    margin-top: 24px;
+    display: flex;
+    gap: 12px;
 }
 
 .plant-detail__actions a {
     text-decoration: none;
-    padding: 7px 14px;
+    padding: 9px 18px;
     border-radius: 999px;
-    border: 1px solid var(--border-soft);
-    color: var(--text-main);
+    border: 2px solid transparent;
+    font-weight: 600;
+    font-size: 0.95rem;
 }
 
-.plant-detail__actions a:first-child {
-    color: var(--accent);
+/* زر التعديل */
+.plant-detail__actions a:nth-child(1) {
     border-color: var(--accent);
+    color: var(--accent);
+    background-color: #ffffff;
 }
 
-.plant-detail__actions a:hover {
+.plant-detail__actions a:nth-child(1):hover {
     background-color: var(--accent);
     color: #ffffff;
 }
 
-.plant-related h2 {
-    margin-bottom: 8px;
+/* زر الحذف */
+.plant-detail__actions a:nth-child(2) {
+    border-color: #c62828;
+    color: #c62828;
+    background-color: #ffffff;
 }
+
+.plant-detail__actions a:nth-child(2):hover {
+    background-color: #c62828;
+    color: #ffffff;
+}
+
+/* Related plants */
+.plant-related h2 {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-size: 26px;
+    font-weight: 700;
+    color: #2e7d32;
+}
+
+/* =========================
+   FORMS (ADD / UPDATE / CONTACT)
+   ========================= */
 
 form {
     margin-top: 12px;
@@ -225,7 +446,7 @@ select {
     border-radius: 8px;
     border: 1px solid var(--border-soft);
     background-color: #ffffff;
-    font-size: .9rem;
+    font-size: 0.9rem;
     margin-top: 4px;
 }
 
@@ -252,6 +473,7 @@ input[type="submit"]:hover {
     background-color: #154c30;
 }
 
+/* Contact form layout */
 .contact-form__row {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -261,6 +483,11 @@ input[type="submit"]:hover {
 .contact-form__field {
     margin-bottom: 12px;
 }
+
+/* =========================
+   CONTACT MESSAGES
+   ========================= */
+
 .messages-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -275,17 +502,57 @@ input[type="submit"]:hover {
 }
 
 .message-card header span {
-    font-size: .85rem;
+    font-size: 0.85rem;
     color: var(--text-muted);
 }
 
+/* =========================
+   FLASH MESSAGES (ADD / UPDATE / DELETE)
+   ========================= */
+
+.flash-messages {
+    position: fixed;
+    top: 70px; /* تحت الـ navbar */
+    right: 16px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.alert {
+    min-width: 240px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+}
+
+.alert-success {
+    background-color: #69906b;
+}
+
+.alert-error,
+.alert-danger {
+    background-color: #c48888;
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
 @media (max-width: 800px) {
     .plant-detail {
-        grid-template-columns: 1fr;
+        flex-direction: column;
     }
 
     .contact-form__row {
         grid-template-columns: 1fr;
+    }
+
+    .plant-detail__info {
+        padding-right: 0;
     }
 }
 
@@ -296,5 +563,9 @@ input[type="submit"]:hover {
 
     main {
         padding: 22px 12px;
+    }
+
+    .plant-title {
+        font-size: 32px;
     }
 }

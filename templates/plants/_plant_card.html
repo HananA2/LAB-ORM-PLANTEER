@@ -1,0 +1,15 @@
+<a href="{% url 'plants:plant_detail' plant.pk %}" class="plant-card-link">
+    <article class="plant-card">
+        {% if plant.image %}
+            <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+        {% endif %}
+        <h2>{{ plant.name }}</h2>
+        <p>{{ plant.about|truncatechars:80 }}</p>
+        <p>
+            <small>
+                {{ plant.get_category_display }}
+                {% if plant.is_edible %} • Edible{% endif %}
+            </small>
+        </p>
+    </article>
+</a>

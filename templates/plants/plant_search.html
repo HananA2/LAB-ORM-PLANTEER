@@ -13,15 +13,7 @@
 
 <section class="plants-grid">
     {% for plant in plants %}
-        <article class="plant-card">
-            <a href="{% url 'plants:plant_detail' plant.pk %}">
-                {% if plant.image %}
-                    <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
-                {% endif %}
-                <h2>{{ plant.name }}</h2>
-            </a>
-            <p>{{ plant.about|truncatechars:80 }}</p>
-        </article>
+        {% include "plants/_plant_card.html" with plant=plant %}
     {% empty %}
         <p>No plants found.</p>
     {% endfor %}
